@@ -2,6 +2,8 @@
 
 Share your favorite devRant moments in Slack.
 
+[![bitHound Overall Score](https://www.bithound.io/github/nblackburn/devrant-bot/badges/score.svg)](https://www.bithound.io/github/nblackburn/devrant-bot)
+
 ## Donations
 
 If you found this bot to be useful, please consider [donating](https://paypal.me/nblackburn).
