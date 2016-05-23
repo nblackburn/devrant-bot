@@ -1,0 +1,16 @@
+# FILES
+
+.env
+.sublime-*
+.DS_STORE
+Thumbs.db
+*.log
+
+# FOLDERS
+
+logs/
+.idea/
+.vscode/
+node_modules/
+store/
+distribution/
