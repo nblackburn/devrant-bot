@@ -6,6 +6,7 @@ import winston from 'winston';
 import bugsnag from 'bugsnag';
 import * as event from './events';
 import * as helpers from './helpers';
+import {version} from '../package.json';
 
 //
 // Configure environment
@@ -25,7 +26,17 @@ if (!env.SLACK_CLIENT_ID || !env.SLACK_CLIENT_SECRET) {
 // Here we configure the bug tracker to best address any issues we might bump into.
 //
 
-bugsnag.register(env.BUGSNAG_API_KEY);
+if (env.BUGSNAG_API_KEY) {
+
+    bugsnag.register(env.BUGSNAG_API_KEY, {
+        appVersion: version,
+        releaseStage: env.NODE_ENV,
+        notifyReleaseStages: [
+            'development',
+            'production'
+        ]
+    });
+}
 
 //
 // Set up logger
