@@ -83,7 +83,7 @@ const trackBot = bot => {
 // Here we create a web server to handle authentication and web hooks.
 //
 
-controller.setupWebserver(3000, (error, webserver) => {
+controller.setupWebserver(env.SERVER_PORT, (error, webserver) => {
 
     // Attach Bugsnag middleware.
     webserver.use(bugsnag.errorHandler);
