@@ -11,6 +11,18 @@ export const truncateString = (string, length) => {
 };
 
 /**
+ * Get a random number
+ *
+ * @param min
+ * @param max
+ *
+ * @returns {*}
+ */
+export const random = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+/**
  * Format a rant into a slack response object.
  * @param rant
  *
