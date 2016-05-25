@@ -127,14 +127,15 @@ controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, mes
 
     bot.startPrivateConversation({user: message.user}, (error, conversation) => {
 
-        if (error) {
+        if (!error) {
+
+            conversation.say('`rant [id]` - Shares a rant.');
+            conversation.say('`latest` - Share the latest rant.');
+            conversation.say('`search [term]` - Search for a rant.');
+            conversation.say('`surprise` or `random` - Shares a surprise (random) rant.');
+        } else {
             bugsnag.notify(new Error(error));
         }
-
-        conversation.say('`rant [id]` - Shares a rant.');
-        conversation.say('`latest` - Share the latest rant.');
-        conversation.say('`search [term]` - Search for a rant.');
-        conversation.say('`surprise` or `random` - Shares a surprise (random) rant.');
     });
 });
 
@@ -260,19 +261,23 @@ controller.on('create_bot', (bot, config) => {
         bot.startRTM((error) => {
 
             if (!error) {
+
                 trackBot(bot);
+
+                bot.startPrivateConversation({user: config.createdBy}, (error, conversation) => {
+
+                    if (error) {
+                        bugsnag.notify(new Error(error));
+                    }
+
+                    conversation.say('Hello, i am devRant bot, thanks for allowing me to be apart of your slack channel.');
+                    conversation.say('To get started, `/invite` me to a channel.');
+                    conversation.say('If you are unsure of anything, type `help` for a list of commands.');
+                });
+
+            } else {
+                bugsnag.notify(new Error(error));
             }
-
-            bot.startPrivateConversation({user: config.createdBy}, (error, conversation) => {
-
-                if (error) {
-                    bugsnag.notify(new Error(error));
-                }
-
-                conversation.say('Hello, i am devRant bot, thanks for allowing me to be apart of your slack channel.');
-                conversation.say('To get started, `/invite` me to a channel.');
-                conversation.say('If you are unsure of anything, type `help` for a list of commands.');
-            });
         });
     }
 });
@@ -284,20 +289,23 @@ controller.on('create_bot', (bot, config) => {
 
 controller.storage.teams.all((error, teams) => {
 
-    if (error) {
-        bugsnag.notify(new Error(error));
-    }
+    if (!error) {
 
-    for (var team in teams) {
+        for (var team in teams) {
 
-        if (teams.hasOwnProperty(team)) {
+            if (teams.hasOwnProperty(team)) {
 
-            controller.spawn(teams[team]).startRTM((error, bot) => {
+                controller.spawn(teams[team]).startRTM((error, bot) => {
 
-                if (!error) {
-                    trackBot(bot);
-                }
-            });
+                    if (!error) {
+                        trackBot(bot);
+                    } else {
+                        bugsnag.notify(new Error(error));
+                    }
+                });
+            }
         }
+    } else {
+        bugsnag.notify(new Error(error));
     }
 });
