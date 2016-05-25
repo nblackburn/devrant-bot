@@ -127,3 +127,34 @@ export const getSurpriseRant = () => {
         });
     });
 };
+
+/**
+ * Get the rants of the week.
+ *
+ * @returns {Promise}
+ */
+export const getWeeklyRants = () => {
+
+    return new Promise((resolve, reject) => {
+
+        baseRequest.get({
+
+            url: 'https://www.devrant.io/api/devrant/weekly-rants',
+            qs: {
+                limit: 10,
+                sort: 'recent'
+            }
+
+        }, (error, response, body) => {
+
+            if (error || response.statusCode !== 200 || !body.success) {
+                const reason = (!body) ? error : body.error;
+
+                reject(reason);
+            }
+
+            // Resolve the promise.
+            resolve(body.rants);
+        });
+    });
+};

@@ -28,3 +28,10 @@ test('get a surprise rant', t => {
         t.truthy(typeof rant === 'object');
     });
 });
+
+test('get the weekly rants', t => {
+
+    return api.getWeeklyRants().then(rants => {
+        t.truthy(rants.length > 0);
+    });
+});
