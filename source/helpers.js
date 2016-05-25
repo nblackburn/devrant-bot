@@ -10,6 +10,12 @@ export const truncateString = (string, length) => {
     return string.slice(0, length) + '...';
 };
 
+/**
+ * Format a rant into a slack response object.
+ * @param rant
+ *
+ * @returns {{color: string, author_name: *, image_url: *, title: string, title_link: string, author_link: string, fields: *[]}}
+ */
 export const formatRant = (rant) => {
 
     return {
