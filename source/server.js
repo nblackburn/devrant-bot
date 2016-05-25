@@ -129,6 +129,7 @@ controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, mes
         conversation.say('`rant [id]` - Shares a rant.');
         conversation.say('`latest` - Share the latest rant.');
         conversation.say('`search [term]` - Search for a rant.');
+        conversation.say('`surprise` or `random` - Shares a surprise (random) rant.');
     });
 });
 
@@ -217,6 +218,27 @@ controller.hears('search (.*)', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (b
 
         bugsnag.notify(new Error(error));
         bot.reply(message, 'I had trouble finding anything, sorry :cry:.');
+    });
+});
+
+controller.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+
+    bot.startTyping(message);
+
+    api.getSurpriseRant().then(rant => {
+
+        const response = {
+            attachments: [
+                helpers.formatRant(rant)
+            ]
+        };
+
+        bot.reply(message, response);
+
+    }).catch((error) => {
+
+        bugsnag.notify(new Error(error));
+        bot.reply(message, 'I was unable to get a surprise rant for you, sorry :cry:.');
     });
 });
 
