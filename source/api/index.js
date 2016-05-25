@@ -101,3 +101,30 @@ export const getRants = (skip, limit, sort) => {
         });
     });
 };
+
+/**
+ * Get a surprise (random) rant.
+ *
+ * @return Promise Returns the callback.
+ */
+export const getSurpriseRant = () => {
+
+    return new Promise((resolve, reject) => {
+
+        baseRequest.get({
+
+            url: 'https://www.devrant.io/api/devrant/rants/surprise'
+
+        }, (error, response, body) => {
+
+            if (error || response.statusCode !== 200 || !body.success) {
+                const reason = (!body) ? error : body.error;
+
+                reject(reason);
+            }
+
+            // Resolve the promise.
+            resolve(body.rant);
+        });
+    });
+};
