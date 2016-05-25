@@ -135,7 +135,7 @@ controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, mes
     });
 });
 
-controller.hears('latest', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+controller.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -186,7 +186,7 @@ controller.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_MENTION
     });
 });
 
-controller.hears('search (.*)', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+controller.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     if (message.match.indexOf(1) !== -1) {
         return false;
