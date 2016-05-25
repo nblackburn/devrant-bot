@@ -77,7 +77,10 @@ controller.configureSlackApp({
 var _bots = {};
 
 const trackBot = bot => {
-    _bots[bot.config.token] = bot;
+
+    if (bot) {
+        _bots[bot.config.token] = bot;
+    }
 };
 
 //
