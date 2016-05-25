@@ -12,18 +12,20 @@ export const baseRequest = request.defaults({
  * Search for a particular term.
  * 
  * @param term The term to search for.
- * @param limit The maximum results to return.
  *
  * @return Promise Returns the callback.
  */
-export const search = (term, limit) => {
+export const search = (term) => {
     
     return new Promise((resolve, reject) => {
         
         baseRequest.get({
-        
-            qs: {term, limit},
-            url: 'https://www.devrant.io/api/devrant/search'
+
+            url: 'https://www.devrant.io/api/devrant/search',
+            qs: {
+                limit: 10,
+                term: term
+            }
         
         }, (error, response, body) => {
 
@@ -69,13 +71,11 @@ export const getRant = (id) => {
 /**
  * Get a list of all rants.
  *
- * @param skip The number of results to skip.
- * @param limit The maximum results to return.
  * @param sort The algorithm in which results are sorted.
  * 
  * @return Promise Returns the callback.
  */
-export const getRants = (skip, limit, sort) => {
+export const getRants = (sort) => {
     
     return new Promise((resolve, reject) => {
         
@@ -83,9 +83,8 @@ export const getRants = (skip, limit, sort) => {
 
             url: 'https://www.devrant.io/api/devrant/rants',
             qs: {
-                skip,
-                sort,
-                limit
+                limit: 10,
+                sort: sort
             }
         
         }, (error, response, body) => {
