@@ -17,6 +17,10 @@ dotenv.config();
 
 const env = process.env;
 
+dotenv.config({
+    silent: true
+});
+
 if (!env.SLACK_CLIENT_ID || !env.SLACK_CLIENT_SECRET) {
     throw new Error('Both a client id and secret must be available in the environment.');
 }
