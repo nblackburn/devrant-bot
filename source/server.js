@@ -13,8 +13,6 @@ import {version} from '../package.json';
 // Here we configure the applications environment.
 //
 
-dotenv.config();
-
 const env = process.env;
 
 dotenv.config({
@@ -141,18 +139,16 @@ controller.hears('latest', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, m
 
     bot.startTyping(message);
 
-    api.getRants(0, 1, 'recent').then(rants => {
+    api.getRants('recent').then(rants => {
+
+        const random = helpers.random(0, 10);
+        const rant = rants[random];
 
         const response = {
-            attachments: []
+            attachments: [
+                helpers.formatRant(rant)
+            ]
         };
-
-        for(let index = 0; index < rants.length; index++) {
-
-            const rant = helpers.formatRant(rants[index]);
-
-            response.attachments.push(rant);
-        }
 
         bot.reply(message, response);
 
@@ -200,21 +196,16 @@ controller.hears('search (.*)', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (b
 
     bot.startTyping(message);
 
-    api.search(term, 3).then(results => {
+    api.search(term).then(results => {
 
-        results = results.slice(0, 3);
+        const random = helpers.random(0, 10);
+        const rant = results[random];
 
         const response = {
-            attachments: []
+            attachments: [
+                helpers.formatRant(rant)
+            ]
         };
-
-        for(let index = 0; index < results.length; index++) {
-
-            const result = results[index];
-            const rant = helpers.formatRant(result);
-
-            response.attachments.push(rant);
-        }
 
         bot.reply(message, response);
 
@@ -301,10 +292,8 @@ controller.storage.teams.all((error, teams) => {
             controller.spawn(teams[team]).startRTM((error, bot) => {
 
                 if (!error) {
-                    bugsnag.notify(new Error(error));
+                    trackBot(bot);
                 }
-
-                trackBot(bot);
             });
         }
     }
