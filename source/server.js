@@ -300,7 +300,7 @@ controller.storage.teams.all((error, teams) => {
 
             controller.spawn(teams[team]).startRTM((error, bot) => {
 
-                if (error) {
+                if (!error) {
                     bugsnag.notify(new Error(error));
                 }
 
