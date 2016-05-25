@@ -17,8 +17,8 @@ export const formatRant = (rant) => {
         author_name: rant.user_username,
         image_url: rant.attached_image.url,
         title: truncateString(rant.text, 100),
-        title_link: `https://devrant.io/rants/${rant.id}?ref=devrant-bot`,
-        author_link: `https://devrant.io/users/${rant.user_username}?ref=devrant-bot`,
+        title_link: `https://www.devrant.io/rants/${rant.id}?ref=devrant-bot`,
+        author_link: `https://www.devrant.io/users/${rant.user_username}?ref=devrant-bot`,
         fields: [
             {
                 short: true,
