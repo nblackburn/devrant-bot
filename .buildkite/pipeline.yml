@@ -1,0 +1,17 @@
+steps:
+
+  - label: 'Install'
+    command: 'npm install'
+
+  - wait
+
+  - label: 'Build'
+    command: 'npm run build'
+
+  - wait
+
+  - label: 'Test'
+    command: 'npm run test'
+
+  - label: 'Copy'
+    command: "rsync -avR --exclude '.git/' . /var/www/devrant-bot"

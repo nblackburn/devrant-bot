@@ -1,0 +1,11 @@
+{
+    "name": "devRant Bot",
+    "repository": "git@github.com:nblackburn/devrant-bot.git",
+    "steps": [
+        {
+            "type": "script",
+            "name": "Pipeline",
+            "command": "buildkite-agent pipeline upload --replace"
+        }
+    ]
+}
