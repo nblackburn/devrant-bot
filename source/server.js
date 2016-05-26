@@ -241,6 +241,30 @@ controller.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MEN
     });
 });
 
+controller.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+
+    bot.startTyping(message);
+
+    api.getWeeklyRants().then(results => {
+
+        const random = helpers.random(0, 10);
+        const rant = results[random];
+
+        const response = {
+            attachments: [
+                helpers.formatRant(rant)
+            ]
+        };
+
+        bot.reply(message, response);
+
+    }).catch((error) => {
+
+        bugsnag.notify(new Error(error));
+        bot.reply(message, 'I had trouble getting the weekly rants, sorry :cry:.');
+    });
+});
+
 //
 // Events
 // Here we define any events the bot responds to.
