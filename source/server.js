@@ -96,18 +96,24 @@ controller.setupWebserver(env.SERVER_PORT, (error, webserver) => {
 
     controller.createWebhookEndpoints(webserver, (error) => {
 
+        const message = (!error) ? 'success' : error;
+
         if (error) {
             bugsnag.notify(new Error(error));
         }
+
+        response.send(message);
     });
 
     controller.createOauthEndpoints(controller.webserver, (error, request, response) => {
 
+        const message = (!error) ? 'success' : error;
+
         if (error) {
             bugsnag.notify(new Error(error));
         }
 
-        response.send('success');
+        response.send(message);
     });
 
     webserver.get('/', (request, response) => {
