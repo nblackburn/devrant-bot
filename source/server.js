@@ -135,10 +135,11 @@ controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, mes
 
         if (!error) {
 
-            conversation.say('`rant [id]` - Shares a rant.');
-            conversation.say('`latest` - Share the latest rant.');
-            conversation.say('`search [term]` - Search for a rant.');
-            conversation.say('`surprise` or `random` - Shares a surprise (random) rant.');
+            conversation.say('`rant [id]` - Get a rant.');
+            conversation.say('`latest` - Get the latest rant.');
+            conversation.say('`search [term]` or `find [term]` - Get a rant matchimg the term.');
+            conversation.say('`surprise` or `random` - Get a surprise (random) rant.');
+            conversation.say('weekly - Get a weekly rant.');
         } else {
             bugsnag.notify(new Error(error));
         }
