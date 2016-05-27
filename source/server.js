@@ -139,7 +139,7 @@ controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, mes
             conversation.say('`latest` - Get the latest rant.');
             conversation.say('`search [term]` or `find [term]` - Get a rant matchimg the term.');
             conversation.say('`surprise` or `random` - Get a surprise (random) rant.');
-            conversation.say('weekly - Get a weekly rant.');
+            conversation.say('`weekly` - Get a weekly rant.');
         } else {
             bugsnag.notify(new Error(error));
         }
