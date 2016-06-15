@@ -5,7 +5,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git://git@github.com:nblackburn/devrant-bot.git"
+        "url": "https://github.com/nblackburn/devrant-bot.git"
     },
     "scripts": {
         "lint": "eslint source",
