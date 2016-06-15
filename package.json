@@ -1,35 +1,39 @@
 {
-  "name": "devrant-bot",
-  "description": "Share your favorite devRant moments in Slack.",
-  "version": "0.2.0",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint source",
-    "test": "ava test --verbose",
-    "start": "node distribution/server.js",
-    "build": "babel source -d distribution --source-maps"
-  },
-  "dependencies": {
-    "ava": "^0.15.0",
-    "botkit": "^0.2.0",
-    "bugsnag": "^1.7.0",
-    "dotenv": "^2.0.0",
-    "request": "^2.72.0",
-    "winston": "^2.2.0"
-  },
-  "devDependencies": {
-    "ava": "^0.15.0",
-    "eslint": "^2.10.2",
-    "babel-cli": "^6.9.0",
-    "babel-polyfill": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-plugin-espower": "^2.1.2",
-    "babel-plugin-transform-runtime": "^6.9.0"
-  },
-  "ava": {
-    "babel": "inherit",
-    "require": [
-      "babel-register"
-    ]
-  }
+    "name": "devrant-bot",
+    "description": "Share your favorite devRant moments in Slack.",
+    "version": "0.2.0",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://git@github.com:nblackburn/devrant-bot.git"
+    },
+    "scripts": {
+        "lint": "eslint source",
+        "test": "ava test --verbose",
+        "start": "node distribution/server.js",
+        "build": "babel source -d distribution --source-maps"
+    },
+    "dependencies": {
+        "ava": "^0.15.0",
+        "botkit": "^0.2.0",
+        "bugsnag": "^1.7.0",
+        "dotenv": "^2.0.0",
+        "request": "^2.72.0",
+        "winston": "^2.2.0"
+    },
+    "devDependencies": {
+        "ava": "^0.15.0",
+        "eslint": "^2.10.2",
+        "babel-cli": "^6.9.0",
+        "babel-polyfill": "^6.9.0",
+        "babel-preset-es2015": "^6.9.0",
+        "babel-plugin-espower": "^2.1.2",
+        "babel-plugin-transform-runtime": "^6.9.0"
+    },
+    "ava": {
+        "babel": "inherit",
+        "require": [
+            "babel-register"
+        ]
+    }
 }
