@@ -49,8 +49,7 @@ file named `.env` in the project root with pasting in the application
 credentials like so...
 
 ```ini
-SLACK_CLIENT_ID = xxxxxxxxxxx.xxxxxxxxxxx
-SLACK_CLIENT_SECRET = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+SLACK_TOKEN = xxxx-xxxxxxxxxxx-xxxxxxxxxxx-xxxxxxxxxxx-xxxxxxxxxx
 ```
 
 ### Running the bot
