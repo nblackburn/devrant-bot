@@ -1,0 +1,14 @@
+name: devRant Bot
+description: Share your favorite devRant moments in Slack.
+config:
+  - name: SERVER_PORT
+    friendly_name: Server port
+    info: The port the bot runs on.
+    default: 8000
+  - name: BUGSNAG_API_KEY
+    friendly_name: Bugsnag API key
+    info: The API key for Bugsnag.
+slackscopes:
+  - bot
+  - commands
+  - incoming-webhook

@@ -6,6 +6,7 @@ import winston from 'winston';
 import bugsnag from 'bugsnag';
 import * as event from './events';
 import * as helpers from './helpers';
+import beepboop from 'beepboop-botkit';
 import {version} from '../package.json';
 
 //
@@ -19,8 +20,8 @@ dotenv.config({
     silent: true
 });
 
-if (!env.SLACK_CLIENT_ID || !env.SLACK_CLIENT_SECRET) {
-    throw new Error('Both a client id and secret must be available in the environment.');
+if (!env.SLACK_TOKEN) {
+    throw new Error('A slack token must be available in the environment.');
 }
 
 //
@@ -54,20 +55,16 @@ winston.add(winston.transports.File, {
 // Here we create the bot controller.
 //
 
-let controller = botkit.slackbot({
+let botkitController = botkit.slackbot({
     json_file_store: './store'
 });
 
-//
-// Configure slack application.
-// Here we configure the slack application.
-//
+// 
+// Intergrate Beep Boop
+// Here we overide the default controller with beepboops.
+// 
 
-controller.configureSlackApp({
-    scopes: ['bot'],
-    clientId: env.SLACK_CLIENT_ID,
-    clientSecret: env.SLACK_CLIENT_SECRET
-});
+var beepboopController = BeepBoop.start(botkitController);
 
 //
 // Prevent duplicate connections.
@@ -88,13 +85,13 @@ const trackBot = bot => {
 // Here we create a web server to handle authentication and web hooks.
 //
 
-controller.setupWebserver(env.SERVER_PORT, (error, webserver) => {
+beepboopController.setupWebserver(env.SERVER_PORT, (error, webserver) => {
 
     // Attach Bugsnag middleware.
     webserver.use(bugsnag.errorHandler);
     webserver.use(bugsnag.requestHandler);
 
-    controller.createWebhookEndpoints(webserver, (error) => {
+    beepboopController.createWebhookEndpoints(webserver, (error) => {
 
         const message = (!error) ? 'success' : error;
 
@@ -105,7 +102,7 @@ controller.setupWebserver(env.SERVER_PORT, (error, webserver) => {
         response.send(message);
     });
 
-    controller.createOauthEndpoints(controller.webserver, (error, request, response) => {
+    beepboopController.createOauthEndpoints(beepboopController.webserver, (error, request, response) => {
 
         const message = (!error) ? 'success' : error;
 
@@ -129,7 +126,7 @@ controller.setupWebserver(env.SERVER_PORT, (error, webserver) => {
 // Here we define any commands the bot will respond to.
 //
 
-controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+beepboopController.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startPrivateConversation({user: message.user}, (error, conversation) => {
 
@@ -146,7 +143,7 @@ controller.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, mes
     });
 });
 
-controller.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+beepboopController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -170,7 +167,7 @@ controller.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, event.DI
     });
 });
 
-controller.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+beepboopController.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     if (message.match.indexOf(1) !== -1) {
         return false;
@@ -197,7 +194,7 @@ controller.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_MENTION
     });
 });
 
-controller.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+beepboopController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     if (message.match.indexOf(1) !== -1) {
         return false;
@@ -227,7 +224,7 @@ controller.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_MESSAGE
     });
 });
 
-controller.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+beepboopController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -248,7 +245,7 @@ controller.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MEN
     });
 });
 
-controller.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+beepboopController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -277,15 +274,15 @@ controller.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, m
 // Here we define any events the bot responds to.
 //
 
-controller.on('rtm_open', () => {
+beepboopController.on('rtm_open', () => {
     winston.log('info', 'Connected to RTM.');
 });
 
-controller.on('rtm_close', () => {
+beepboopController.on('rtm_close', () => {
     winston.log('info', 'Disconnected to RTM.');
 });
 
-controller.on('create_bot', (bot, config) => {
+beepboopController.on('create_bot', (bot, config) => {
 
     if (!_bots[bot.config.token]) {
 
@@ -318,7 +315,7 @@ controller.on('create_bot', (bot, config) => {
 // Here we will handle the storage of users, teams and channels.
 //
 
-controller.storage.teams.all((error, teams) => {
+beepboopController.storage.teams.all((error, teams) => {
 
     if (!error) {
 
@@ -326,7 +323,7 @@ controller.storage.teams.all((error, teams) => {
 
             if (teams.hasOwnProperty(team)) {
 
-                controller.spawn(teams[team]).startRTM((error, bot) => {
+                beepboopController.spawn(teams[team]).startRTM((error, bot) => {
 
                     if (!error) {
                         trackBot(bot);
