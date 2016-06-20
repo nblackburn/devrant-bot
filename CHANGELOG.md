@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1
+
+- Moved hosting to [Beep Boop](https://beepboophq.com).
+- Updated dependencies.
+- Updated contribution guide.
+- Replaced babel preset es2015 with node6.
+
 ## 0.2.0
 
 - Improved error handling.
