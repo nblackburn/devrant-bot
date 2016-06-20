@@ -14,11 +14,11 @@
         "build": "babel source -d distribution --source-maps"
     },
     "dependencies": {
-        "ava": "^0.15.0",
-        "botkit": "^0.2.0",
+        "ava": "^0.15.2",
+        "botkit": "^0.2.1",
         "bugsnag": "^1.7.0",
         "dotenv": "^2.0.0",
-        "request": "^2.72.0",
+        "request": "^2.72.1",
         "winston": "^2.2.0"
     },
     "devDependencies": {
