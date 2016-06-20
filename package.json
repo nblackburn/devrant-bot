@@ -1,7 +1,7 @@
 {
     "name": "devrant-bot",
     "description": "Share your favorite devRant moments in Slack.",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "license": "MIT",
     "repository": {
         "type": "git",
