@@ -84,47 +84,6 @@ const trackBot = bot => {
 };
 
 //
-// Setup web server
-// Here we create a web server to handle authentication and web hooks.
-//
-
-beepboopController.setupWebserver(env.SERVER_PORT, (error, webserver) => {
-
-    // Attach Bugsnag middleware.
-    webserver.use(bugsnag.errorHandler);
-    webserver.use(bugsnag.requestHandler);
-
-    beepboopController.createWebhookEndpoints(webserver, (error) => {
-
-        const message = (!error) ? 'success' : error;
-
-        if (error) {
-            bugsnag.notify(new Error(error));
-        }
-
-        response.send(message);
-    });
-
-    beepboopController.createOauthEndpoints(beepboopController.webserver, (error, request, response) => {
-
-        const message = (!error) ? 'success' : error;
-
-        if (error) {
-            bugsnag.notify(new Error(error));
-        }
-
-        response.send(message);
-    });
-
-    webserver.get('/', (request, response) => {
-
-        response.sendFile('index.html', {
-            root: path.join(__dirname, '../', 'public')
-        });
-    });
-});
-
-//
 // Commands
 // Here we define any commands the bot will respond to.
 //
