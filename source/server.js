@@ -32,7 +32,7 @@ let botkitController = botkit.slackbot({debug: true});
 
 if (env.SLACK_TOKEN) {
     
-    controller.spawn({token: env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
+    botkitController.spawn({token: env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
         
         if (error) {
             throw new Error(error)
