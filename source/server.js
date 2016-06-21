@@ -20,8 +20,11 @@ dotenv.config({
     silent: true
 });
 
-if (!env.SLACK_TOKEN) {
-    throw new Error('A slack token must be available in the environment.');
+if (env.NODE_ENV !== 'production') {
+
+    if (!env.SLACK_CLIENT_ID || !env.SLACK_CLIENT_SECRET) {
+        throw new Error('Both a client id and secret must be available in the environment.');
+    }
 }
 
 //
@@ -64,7 +67,7 @@ let botkitController = botkit.slackbot({
 // Here we overide the default controller with beepboops.
 // 
 
-var beepboopController = BeepBoop.start(botkitController);
+var beepboopController = beepboop.start(botkitController);
 
 //
 // Prevent duplicate connections.
