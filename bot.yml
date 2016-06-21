@@ -17,10 +17,6 @@ config:
     friendly_name: Slack token
     info: Token used to run the test suite.
     global: true
-  - name: BUGSNAG_API_KEY
-    friendly_name: Bugsnag API key
-    info: The API key for Bugsnag.
-    global: true
 slackscopes:
   - bot
   - commands

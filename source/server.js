@@ -19,23 +19,6 @@ dotenv.config({
 });
 
 //
-// Configure bug tracker.
-// Here we configure the bug tracker to best address any issues we might bump into.
-//
-
-if (env.BUGSNAG_API_KEY) {
-
-    bugsnag.register(env.BUGSNAG_API_KEY, {
-        appVersion: version,
-        releaseStage: env.NODE_ENV,
-        notifyReleaseStages: [
-            'development',
-            'production'
-        ]
-    });
-}
-
-//
 // Create a bot controller.
 // Here we create the bot controller.
 //
