@@ -88,7 +88,7 @@ const trackBot = bot => {
 // Here we define any commands the bot will respond to.
 //
 
-beepboopController.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+botkitController.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startPrivateConversation({user: message.user}, (error, conversation) => {
 
@@ -105,7 +105,7 @@ beepboopController.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (
     });
 });
 
-beepboopController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -129,7 +129,7 @@ beepboopController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, 
     });
 });
 
-beepboopController.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+botkitController.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     if (message.match.indexOf(1) !== -1) {
         return false;
@@ -156,7 +156,7 @@ beepboopController.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT
     });
 });
 
-beepboopController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+botkitController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     if (message.match.indexOf(1) !== -1) {
         return false;
@@ -186,7 +186,7 @@ beepboopController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT
     });
 });
 
-beepboopController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+botkitController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -207,7 +207,7 @@ beepboopController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DI
     });
 });
 
-beepboopController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
+botkitController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bot, message) => {
 
     bot.startTyping(message);
 
@@ -236,15 +236,15 @@ beepboopController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION],
 // Here we define any events the bot responds to.
 //
 
-beepboopController.on('rtm_open', () => {
+botkitController.on('rtm_open', () => {
     winston.log('info', 'Connected to RTM.');
 });
 
-beepboopController.on('rtm_close', () => {
+botkitController.on('rtm_close', () => {
     winston.log('info', 'Disconnected to RTM.');
 });
 
-beepboopController.on('create_bot', (bot, config) => {
+botkitController.on('create_bot', (bot, config) => {
 
     if (!_bots[bot.config.token]) {
 
@@ -277,7 +277,7 @@ beepboopController.on('create_bot', (bot, config) => {
 // Here we will handle the storage of users, teams and channels.
 //
 
-beepboopController.storage.teams.all((error, teams) => {
+botkitController.storage.teams.all((error, teams) => {
 
     if (!error) {
 
@@ -285,7 +285,7 @@ beepboopController.storage.teams.all((error, teams) => {
 
             if (teams.hasOwnProperty(team)) {
 
-                beepboopController.spawn(teams[team]).startRTM((error, bot) => {
+                botkitController.spawn(teams[team]).startRTM((error, bot) => {
 
                     if (!error) {
                         trackBot(bot);
