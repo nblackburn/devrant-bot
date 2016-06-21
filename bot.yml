@@ -7,9 +7,11 @@ config:
     friendly_name: Server port
     info: The port the bot runs on.
     default: 8000
+    global: true
   - name: BUGSNAG_API_KEY
     friendly_name: Bugsnag API key
     info: The API key for Bugsnag.
+    global: true
 slackscopes:
   - bot
   - commands
