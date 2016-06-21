@@ -2,8 +2,6 @@ import path from 'path';
 import dotenv from 'dotenv';
 import botkit from 'botkit';
 import * as api from './api';
-import winston from 'winston';
-import bugsnag from 'bugsnag';
 import * as event from './events';
 import * as helpers from './helpers';
 import beepboop from 'beepboop-botkit';
@@ -19,13 +17,6 @@ const env = process.env;
 dotenv.config({
     silent: true
 });
-
-if (env.NODE_ENV !== 'production') {
-
-    if (!env.SLACK_CLIENT_ID || !env.SLACK_CLIENT_SECRET) {
-        throw new Error('Both a client id and secret must be available in the environment.');
-    }
-}
 
 //
 // Configure bug tracker.
@@ -45,43 +36,30 @@ if (env.BUGSNAG_API_KEY) {
 }
 
 //
-// Set up logger
-// Here we setup a logger instance to keep track of errors.
-//
-
-winston.add(winston.transports.File, {
-    filename: `./logs/${env.NODE_ENV}.log`
-});
-
-//
 // Create a bot controller.
 // Here we create the bot controller.
 //
 
-let botkitController = botkit.slackbot({
-    json_file_store: './store'
-});
+let botkitController = botkit.slackbot({debug: true});
 
 // 
 // Intergrate Beep Boop
 // Here we overide the default controller with beepboops.
 // 
 
-var beepboopController = beepboop.start(botkitController);
+if (env.SLACK_TOKEN) {
+    
+    controller.spawn({token: env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
+        
+        if (error) {
+            throw new Error(error)
+        }
+    });
 
-//
-// Prevent duplicate connections.
-// Here we ensure we don't connect to them RTM twice for the same team.
-//
+} else {
 
-var _bots = {};
-
-const trackBot = bot => {
-
-    if (bot) {
-        _bots[bot.config.token] = bot;
-    }
-};
+    beepboop.start(botkitController, {debug: true});
+}
 
 //
 // Commands
@@ -236,14 +214,6 @@ botkitController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (
 // Here we define any events the bot responds to.
 //
 
-botkitController.on('rtm_open', () => {
-    winston.log('info', 'Connected to RTM.');
-});
-
-botkitController.on('rtm_close', () => {
-    winston.log('info', 'Disconnected to RTM.');
-});
-
 botkitController.on('create_bot', (bot, config) => {
 
     if (!_bots[bot.config.token]) {
@@ -269,33 +239,5 @@ botkitController.on('create_bot', (bot, config) => {
                 bugsnag.notify(new Error(error));
             }
         });
-    }
-});
-
-//
-// Storage
-// Here we will handle the storage of users, teams and channels.
-//
-
-botkitController.storage.teams.all((error, teams) => {
-
-    if (!error) {
-
-        for (var team in teams) {
-
-            if (teams.hasOwnProperty(team)) {
-
-                botkitController.spawn(teams[team]).startRTM((error, bot) => {
-
-                    if (!error) {
-                        trackBot(bot);
-                    } else {
-                        bugsnag.notify(new Error(error));
-                    }
-                });
-            }
-        }
-    } else {
-        bugsnag.notify(new Error(error));
     }
 });
