@@ -2,21 +2,6 @@ name: devRant Bot
 description: Share your favorite devRant moments in Slack.
 avatar: branding/avatar.png
 background: branding/background.png
-config:
-  - name: NODE_ENV
-    friendly_name: Node environment
-    info: The environment the bot runs on.
-    default: production
-    global: true
-  - name: SERVER_PORT
-    friendly_name: Server port
-    info: The port the bot runs on.
-    default: 8000
-    global: true
-  - name: SLACK_TOKEN
-    friendly_name: Slack token
-    info: Token used to run the test suite.
-    global: true
 slackscopes:
   - bot
   - commands
