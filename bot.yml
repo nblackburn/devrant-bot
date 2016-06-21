@@ -1,5 +1,7 @@
 name: devRant Bot
 description: Share your favorite devRant moments in Slack.
+avatar: branding/avatar.png
+background: branding/background.png
 config:
   - name: SERVER_PORT
     friendly_name: Server port
