@@ -2,6 +2,8 @@ name: devRant Bot
 description: Share your favorite devRant moments in Slack.
 avatar: branding/avatar.png
 background: branding/background.png
+screenshots:
+  - screenshot: branding/screenshots/screenshot-01.png
 slackscopes:
   - bot
   - commands
