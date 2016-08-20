@@ -22,7 +22,7 @@ dotenv.config({
 // Here we create the bot controller.
 //
 
-let botkitController = botkit.slackbot({debug: true});
+let botkitController = botkit.slackbot({debug: false});
 
 // 
 // Intergrate Beep Boop
@@ -40,7 +40,7 @@ if (process.env.SLACK_TOKEN) {
 
 } else {
 
-    beepboop.start(botkitController, {debug: true});
+    beepboop.start(botkitController, {debug: false});
 }
 
 //
