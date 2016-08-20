@@ -32,14 +32,10 @@ let botkitController = botkit.slackbot({debug: false});
 if (process.env.SLACK_TOKEN) {
     
     botkitController.spawn({token: process.env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
-        
-        if (error) {
-            throw new Error(error)
-        }
+        if (error) throw error;
     });
 
 } else {
-
     beepboop.start(botkitController, {debug: false});
 }
 
@@ -60,7 +56,7 @@ botkitController.hears('help', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (bo
             conversation.say('`surprise` or `random` - Get a surprise (random) rant.');
             conversation.say('`weekly` - Get a weekly rant.');
         } else {
-            bugsnag.notify(new Error(error));
+            conversation.say('I was unable to get the list of commands for you, sorry :cry:.');
         }
     });
 });
@@ -83,9 +79,7 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
         bot.reply(message, response);
 
     }).catch((error) => {
-
-        bugsnag.notify(new Error(error));
-        bot.reply(message, 'I was unable to get the latest rant for you, sorry :cry:.');
+        throw error;
     });
 });
 
@@ -110,9 +104,7 @@ botkitController.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_M
         bot.reply(message, response);
 
     }).catch((error) => {
-
-        bugsnag.notify(new Error(error));
-        bot.reply(message, 'I was unable to get that rant for you, sorry :cry:.');
+        throw error;
     });
 });
 
@@ -128,8 +120,8 @@ botkitController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_M
 
     api.search(term).then(results => {
 
-        const random = helpers.random(0, 10);
         const rant = results[random];
+        const random = helpers.random(0, 10);
 
         const response = {
             attachments: [
@@ -140,9 +132,7 @@ botkitController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_M
         bot.reply(message, response);
 
     }).catch((error) => {
-
-        bugsnag.notify(new Error(error));
-        bot.reply(message, 'I had trouble finding anything, sorry :cry:.');
+        throw error;
     });
 });
 
@@ -161,9 +151,7 @@ botkitController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRE
         bot.reply(message, response);
 
     }).catch((error) => {
-
-        bugsnag.notify(new Error(error));
-        bot.reply(message, 'I was unable to get a surprise rant for you, sorry :cry:.');
+        throw error;
     });
 });
 
@@ -185,9 +173,7 @@ botkitController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (
         bot.reply(message, response);
 
     }).catch((error) => {
-
-        bugsnag.notify(new Error(error));
-        bot.reply(message, 'I had trouble getting the weekly rants, sorry :cry:.');
+        throw error;
     });
 });
 
@@ -209,16 +195,15 @@ botkitController.on('create_bot', (bot, config) => {
                 bot.startPrivateConversation({user: config.createdBy}, (error, conversation) => {
 
                     if (error) {
-                        bugsnag.notify(new Error(error));
+                        throw new Error('Unable to start conversation.');
                     }
 
                     conversation.say('Hello, i am devRant bot, thanks for allowing me to be apart of your slack channel.');
                     conversation.say('To get started, `/invite` me to a channel.');
                     conversation.say('If you are unsure of anything, type `help` for a list of commands.');
                 });
-
             } else {
-                bugsnag.notify(new Error(error));
+                throw new Error('Unable to start RTM.');
             }
         });
     }
