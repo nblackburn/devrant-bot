@@ -13,8 +13,6 @@ const beepboop = require('beepboop-botkit');
 // Here we configure the applications environment.
 //
 
-const env = process.env;
-
 dotenv.config({
     silent: true
 });
@@ -31,9 +29,9 @@ let botkitController = botkit.slackbot({debug: true});
 // Here we overide the default controller with beepboops.
 // 
 
-if (env.SLACK_TOKEN) {
+if (process.env.SLACK_TOKEN) {
     
-    botkitController.spawn({token: env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
+    botkitController.spawn({token: process.env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
         
         if (error) {
             throw new Error(error)
@@ -73,8 +71,8 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
 
     api.getRants('recent').then(rants => {
 
-        const random = helpers.random(0, 10);
         const rant = rants[random];
+        const random = helpers.random(0, 10);
 
         const response = {
             attachments: [
