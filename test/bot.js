@@ -1,7 +1,8 @@
-import test from 'ava';
-import path from 'path';
-import botkit from 'botkit';
-import dotenv from 'dotenv';
+const test = require('ava');
+const path = require('path');
+const botkit = require('botkit');
+const dotenv = require('dotenv');
+const api = require('../source/api');
 
 dotenv.config({
     silent: true,

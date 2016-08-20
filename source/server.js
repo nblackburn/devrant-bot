@@ -1,18 +1,17 @@
-import path from 'path';
-import dotenv from 'dotenv';
-import botkit from 'botkit';
-import * as api from './api';
-import * as event from './events';
-import * as helpers from './helpers';
-import beepboop from 'beepboop-botkit';
-import {version} from '../package.json';
+'use strict';
+
+const api = require('./api');
+const path = require('path');
+const dotenv = require('dotenv');
+const botkit = require('botkit');
+const event = require('./events');
+const helpers = require('./helpers');
+const beepboop = require('beepboop-botkit');
 
 //
 // Configure environment
 // Here we configure the applications environment.
 //
-
-const env = process.env;
 
 dotenv.config({
     silent: true
@@ -30,9 +29,9 @@ let botkitController = botkit.slackbot({debug: true});
 // Here we overide the default controller with beepboops.
 // 
 
-if (env.SLACK_TOKEN) {
+if (process.env.SLACK_TOKEN) {
     
-    botkitController.spawn({token: env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
+    botkitController.spawn({token: process.env.SLACK_TOKEN}).startRTM(function (error, bot, payload) {
         
         if (error) {
             throw new Error(error)
@@ -72,8 +71,8 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
 
     api.getRants('recent').then(rants => {
 
-        const random = helpers.random(0, 10);
         const rant = rants[random];
+        const random = helpers.random(0, 10);
 
         const response = {
             attachments: [
