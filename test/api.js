@@ -1,5 +1,5 @@
-import test from 'ava';
-import * as api from '../source/api';
+const test = require('ava');
+const api = require('../source/api');
 
 test('get a single rant', t => {
 

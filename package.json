@@ -10,8 +10,7 @@
     "scripts": {
         "lint": "eslint source",
         "test": "ava test --verbose",
-        "start": "node distribution/server.js",
-        "build": "babel source -d distribution --source-maps"
+        "start": "node source/server.js"
     },
     "dependencies": {
         "ava": "^0.15.2",
@@ -22,17 +21,6 @@
     },
     "devDependencies": {
         "ava": "^0.15.0",
-        "eslint": "^2.10.2",
-        "babel-cli": "^6.9.0",
-        "babel-polyfill": "^6.9.0",
-        "babel-preset-es2015": "^6.9.0",
-        "babel-preset-node6": "^11.0.0",
-        "babel-plugin-transform-runtime": "^6.9.0"
-    },
-    "ava": {
-        "babel": "inherit",
-        "require": [
-            "babel-register"
-        ]
+        "eslint": "^2.10.2"
     }
 }

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Truncate a string to the given length.
  *
@@ -6,7 +8,7 @@
  *
  * @returns {string}
  */
-export const truncateString = (string, length) => {
+const truncateString = (string, length) => {
     return string.slice(0, length) + '...';
 };
 
@@ -18,7 +20,7 @@ export const truncateString = (string, length) => {
  *
  * @returns {*}
  */
-export const random = (min, max) => {
+const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -28,7 +30,7 @@ export const random = (min, max) => {
  *
  * @returns {{color: string, author_name: *, image_url: *, title: string, title_link: string, author_link: string, fields: *[]}}
  */
-export const formatRant = (rant) => {
+const formatRant = (rant) => {
 
     return {
         color: '#f99a66',
@@ -51,3 +53,7 @@ export const formatRant = (rant) => {
         ]
     };
 };
+
+exports.random = random;
+exports.formatRant = formatRant;
+exports.truncateString = truncateString;

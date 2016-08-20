@@ -1,11 +1,12 @@
-import path from 'path';
-import dotenv from 'dotenv';
-import botkit from 'botkit';
-import * as api from './api';
-import * as event from './events';
-import * as helpers from './helpers';
-import beepboop from 'beepboop-botkit';
-import {version} from '../package.json';
+'use strict';
+
+const api = require('./api');
+const path = require('path');
+const dotenv = require('dotenv');
+const botkit = require('botkit');
+const event = require('./events');
+const helpers = require('./helpers');
+const beepboop = require('beepboop-botkit');
 
 //
 // Configure environment

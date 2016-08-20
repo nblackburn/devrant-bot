@@ -1,6 +1,8 @@
-import request from 'request';
+'use strict';
 
-export const baseRequest = request.defaults({
+const request = require('request');
+
+const baseRequest = request.defaults({
     json: true,
     gzip: true,
     qs: {
@@ -15,7 +17,7 @@ export const baseRequest = request.defaults({
  *
  * @return Promise Returns the callback.
  */
-export const search = (term) => {
+const search = (term) => {
     
     return new Promise((resolve, reject) => {
         
@@ -46,7 +48,7 @@ export const search = (term) => {
  *
  * @return Promise Returns the callback.
  */
-export const getRant = (id) => {
+const getRant = (id) => {
 
     return new Promise((resolve, reject) => {
 
@@ -75,7 +77,7 @@ export const getRant = (id) => {
  * 
  * @return Promise Returns the callback.
  */
-export const getRants = (sort) => {
+const getRants = (sort) => {
     
     return new Promise((resolve, reject) => {
         
@@ -106,7 +108,7 @@ export const getRants = (sort) => {
  *
  * @return Promise Returns the callback.
  */
-export const getSurpriseRant = () => {
+const getSurpriseRant = () => {
 
     return new Promise((resolve, reject) => {
 
@@ -133,7 +135,7 @@ export const getSurpriseRant = () => {
  *
  * @returns {Promise}
  */
-export const getWeeklyRants = () => {
+const getWeeklyRants = () => {
 
     return new Promise((resolve, reject) => {
 
@@ -158,3 +160,9 @@ export const getWeeklyRants = () => {
         });
     });
 };
+
+exports.search = search;
+exports.getRant = getRant;
+exports.getRants = getRants;
+exports.getWeeklyRants = getWeeklyRants;
+exports.getSurpriseRant = getSurpriseRant;
