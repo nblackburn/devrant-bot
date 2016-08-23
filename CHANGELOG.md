@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.3
+
+- Fixed a typo.
+- Added json store back.
+
+## 0.2.2
+
+- Removed debug flag.
+- Correctly handled errors.
+
 ## 0.2.1
 
 - Moved hosting to [Beep Boop](https://beepboophq.com).
