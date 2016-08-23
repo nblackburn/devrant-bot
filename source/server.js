@@ -70,9 +70,9 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
 
     api.getRants('recent').then(rants => {
 
-        const rant = rants[random];
         const random = helpers.random(0, 10);
-
+        const rant = rants[random];
+        
         const response = {
             attachments: [
                 helpers.formatRant(rant)
@@ -82,9 +82,6 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
         bot.reply(message, response);
 
     }).catch((error) => {
-
-        console.log(error);
-
         throw error;
     });
 });
@@ -126,8 +123,8 @@ botkitController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_M
 
     api.search(term).then(results => {
 
-        const rant = results[random];
         const random = helpers.random(0, 10);
+        const rant = results[random];
 
         const response = {
             attachments: [
