@@ -206,7 +206,7 @@ botkitController.on('create_bot', (bot, config) => {
                     conversation.say('If you are unsure of anything, type `help` for a list of commands.');
                 });
             } else {
-                throw new Error('Unable to start RTM.');
+                throw error;
             }
         });
     }
