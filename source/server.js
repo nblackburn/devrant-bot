@@ -22,7 +22,10 @@ dotenv.config({
 // Here we create the bot controller.
 //
 
-let botkitController = botkit.slackbot({debug: false});
+let botkitController = botkit.slackbot({
+    debug: false,
+    json_file_store: './store'
+});
 
 // 
 // Intergrate Beep Boop
