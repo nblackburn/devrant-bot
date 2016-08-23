@@ -79,11 +79,12 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
             ]
         };
 
-        console.log('TEST', response);
-
         bot.reply(message, response);
 
     }).catch((error) => {
+
+        console.log(error);
+
         throw error;
     });
 });
