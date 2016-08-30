@@ -1,6 +1,6 @@
 # devRant Bot
 
-devRant bot was built with wonderful devRant community to allow teams to share their favroite rants with each other.
+devRant bot was built with wonderful devRant community to allow teams to share their favorite rants with each other.
 
 ## Commands
 
