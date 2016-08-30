@@ -1,6 +1,6 @@
 # devRant Bot
 
-devRant bot was built with wonderful devRant community to allow teams to share their favorite rants with each other.
+devRant bot was built with the devRant community to allow teams to share their favorite rants with each other in Slack. There are several commands that make it easy to share your favroute moments with the rest of you team from grabbing the latest rant to searching for content based on a particular keyword.
 
 ## Commands
 
