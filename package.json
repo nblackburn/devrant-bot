@@ -13,14 +13,14 @@
         "start": "node source/server.js"
     },
     "dependencies": {
-        "ava": "^0.15.2",
-        "botkit": "^0.2.1",
+        "botkit": "^0.2.2",
         "dotenv": "^2.0.0",
         "request": "^2.72.0",
+        "devrant-api": "^0.1.2",
         "beepboop-botkit": "^1.4.1"
     },
     "devDependencies": {
         "ava": "^0.15.0",
-        "eslint": "^2.10.2"
+        "eslint": "^3.6.1"
     }
 }
