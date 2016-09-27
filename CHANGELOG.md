@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.6
+
+- Added app to requests
+
 ## 0.2.5
 
 - Use [devrant-api](https://github.com/nblackburn/devrant-api) package
