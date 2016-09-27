@@ -1,10 +1,10 @@
 'use strict';
 
-const api = require('./api');
 const path = require('path');
 const dotenv = require('dotenv');
 const botkit = require('botkit');
 const event = require('./events');
+const api = require('devrant-api');
 const helpers = require('./helpers');
 const beepboop = require('beepboop-botkit');
 
@@ -68,7 +68,7 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
 
     bot.startTyping(message);
 
-    api.getRants('recent').then(rants => {
+    api.rants.all({algo: 'recent'}).then(rants => {
 
         const random = helpers.random(0, 10);
         const rant = rants[random];
@@ -143,7 +143,7 @@ botkitController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRE
 
     bot.startTyping(message);
 
-    api.getSurpriseRant().then(rant => {
+    api.rants.surprise().then(rant => {
 
         const response = {
             attachments: [
@@ -162,7 +162,7 @@ botkitController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (
 
     bot.startTyping(message);
 
-    api.getWeeklyRants().then(results => {
+    api.weeklyRants().then(results => {
 
         const random = helpers.random(0, 10);
         const rant = results[random];
