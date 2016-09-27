@@ -68,7 +68,7 @@ botkitController.hears(['latest', 'recent', 'newest'], [event.DIRECT_MESSAGE, ev
 
     bot.startTyping(message);
 
-    api.rants.all({algo: 'recent'}).then(rants => {
+    api.rants.all({algo: 'recent', app: 3}).then(rants => {
 
         const random = helpers.random(0, 10);
         const rant = rants[random];
@@ -96,7 +96,7 @@ botkitController.hears('rant ([0-9]{4,})', [event.DIRECT_MESSAGE, event.DIRECT_M
 
     bot.startTyping(message);
 
-    api.getRant(id).then(rant => {
+    api.getRant({id: id, app: 3}).then(rant => {
 
         const response = {
             attachments: [
@@ -121,7 +121,7 @@ botkitController.hears(['search (.*)', 'find (.*)', 'get (.*)'], [event.DIRECT_M
 
     bot.startTyping(message);
 
-    api.search(term).then(results => {
+    api.search({term: term, app: 3}).then(results => {
 
         const random = helpers.random(0, 10);
         const rant = results[random];
@@ -143,7 +143,7 @@ botkitController.hears(['surprise', 'random'], [event.DIRECT_MESSAGE, event.DIRE
 
     bot.startTyping(message);
 
-    api.rants.surprise().then(rant => {
+    api.rants.surprise({app: 3}).then(rant => {
 
         const response = {
             attachments: [
@@ -162,7 +162,7 @@ botkitController.hears('weekly', [event.DIRECT_MESSAGE, event.DIRECT_MENTION], (
 
     bot.startTyping(message);
 
-    api.weeklyRants().then(results => {
+    api.weeklyRants({app: 3}).then(results => {
 
         const random = helpers.random(0, 10);
         const rant = results[random];
