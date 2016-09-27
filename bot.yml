@@ -8,5 +8,3 @@ screenshots:
   - screenshot: branding/screenshots/screenshot-01.png
 slackscopes:
   - bot
-  - commands
-  - incoming-webhook
