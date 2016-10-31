@@ -1,26 +1,30 @@
 {
-    "name": "devrant-bot",
-    "description": "Share your favorite devRant moments in Slack.",
-    "version": "0.2.6",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nblackburn/devrant-bot.git"
-    },
-    "scripts": {
-        "lint": "eslint source",
-        "test": "ava test --verbose",
-        "start": "node source/server.js"
-    },
-    "dependencies": {
-        "botkit": "^0.4.0",
-        "dotenv": "^2.0.0",
-        "request": "^2.76.0",
-        "devrant-api": "^0.1.2",
-        "beepboop-botkit": "^1.4.1"
-    },
-    "devDependencies": {
-        "ava": "^0.16.0",
-        "eslint": "^3.8.1"
-    }
+  "name": "devrant-bot",
+  "description": "Share your favorite devRant moments in Slack.",
+  "version": "0.2.6",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nblackburn/devrant-bot.git"
+  },
+  "scripts": {
+    "lint": "eslint source",
+    "test": "ava test --verbose",
+    "start": "node source/server.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "dependencies": {
+    "botkit": "^0.4.0",
+    "dotenv": "^2.0.0",
+    "request": "^2.76.0",
+    "devrant-api": "^0.1.2",
+    "beepboop-botkit": "^1.4.1",
+    "snyk": "^1.19.1"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "eslint": "^3.8.1"
+  },
+  "snyk": true
 }
