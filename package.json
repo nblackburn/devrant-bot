@@ -23,7 +23,7 @@
     "snyk": "^1.19.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.0",
     "eslint": "^3.9.1"
   },
   "snyk": true
