@@ -20,7 +20,7 @@
     "request": "^2.78.0",
     "devrant-api": "^0.2.0",
     "beepboop-botkit": "^1.4.1",
-    "snyk": "^1.19.1"
+    "snyk": "^1.31.0"
   },
   "devDependencies": {
     "ava": "^0.18.0",
